@@ -1,5 +1,5 @@
 <resources>
     <declare-styleable name="DrawInsetsFrameLayout">
-        <attr name="insetBackground" format="color|reference" />
+        <attr name="insetBackground" format="color|reference"/>
     </declare-styleable>
 </resources>
