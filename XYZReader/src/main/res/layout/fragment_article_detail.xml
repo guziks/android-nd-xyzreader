@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
             <ImageView
                 android:id="@+id/photo"
@@ -49,7 +49,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -57,7 +56,6 @@
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/detail_metabar_vert_padding"
                 android:background="@color/dark_gray"
                 android:orientation="vertical"
@@ -93,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
                 android:layout_marginRight="@dimen/detail_inner_horiz_margin"
+                android:autoLink="all"
                 android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                 android:paddingBottom="@dimen/detail_body_bottom_margin"
                 android:textColorLink="@color/theme_accent"/>
