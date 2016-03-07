@@ -10,5 +10,6 @@
     <dimen name="list_top_margin">8dp</dimen>
     <dimen name="list_bottom_margin">8dp</dimen>
     <dimen name="appbar_height">112dp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
 
 </resources>
