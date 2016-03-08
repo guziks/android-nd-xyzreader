@@ -3,7 +3,10 @@ package com.example.xyzreader.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
@@ -17,8 +20,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -86,12 +92,13 @@ public class ArticleDetailFragment extends Fragment implements
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-        Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.detail_toolbar);
-        getActivityCast().setSupportActionBar(toolbar);
-        ActionBar actionBar = getActivityCast().getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.detail_toolbar);
+//        getActivityCast().setSupportActionBar(toolbar);
+//        ActionBar actionBar = getActivityCast().getSupportActionBar();
+//        Toast.makeText(getContext(), (CharSequence) String.valueOf(actionBar.getDisplayOptions()), Toast.LENGTH_LONG).show();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
 
@@ -112,7 +119,6 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     private void bindViews() {
@@ -146,6 +152,8 @@ public class ArticleDetailFragment extends Fragment implements
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
+                                setStatusBarColor(mMutedColor);
+                                setToolbarColor(mMutedColor);
                             }
                         }
 
@@ -155,6 +163,22 @@ public class ArticleDetailFragment extends Fragment implements
                         }
                     });
         }
+    }
+
+    private void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+        }
+    }
+
+    private void setToolbarColor(int color) {
+        CollapsingToolbarLayout ctl = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsing_toolbar);
+        ctl.setContentScrimColor(color);
     }
 
     @Override

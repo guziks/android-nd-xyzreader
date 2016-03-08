@@ -3,6 +3,7 @@ package com.example.xyzreader.ui;
 
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
@@ -80,20 +83,20 @@ public class ArticleDetailActivity extends AppCompatActivity
         mCursor = cursor;
         mPagerAdapter.notifyDataSetChanged();
 
-        // Select the start ID
-        if (mStartId > 0) {
-            mCursor.moveToFirst();
-            // TODO: optimize
-            while (!mCursor.isAfterLast()) {
-                if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
-                    final int position = mCursor.getPosition();
-                    mPager.setCurrentItem(position, false);
-                    break;
-                }
-                mCursor.moveToNext();
-            }
-            mStartId = 0;
-        }
+//        // Select the start ID
+//        if (mStartId > 0) {
+//            mCursor.moveToFirst();
+//            // TODO: optimize
+//            while (!mCursor.isAfterLast()) {
+//                if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
+//                    final int position = mCursor.getPosition();
+//                    mPager.setCurrentItem(position, false);
+//                    break;
+//                }
+//                mCursor.moveToNext();
+//            }
+//            mStartId = 0;
+//        }
     }
 
     @Override
