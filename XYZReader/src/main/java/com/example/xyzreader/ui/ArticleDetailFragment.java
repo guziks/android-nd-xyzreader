@@ -149,6 +149,9 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
 
         if (mCursor != null) {
+            mRootView.setAlpha(0);
+            mRootView.setVisibility(View.VISIBLE);
+            mRootView.animate().alpha(1);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             bylineView.setText(Html.fromHtml(
                     DateUtils.getRelativeTimeSpanString(
@@ -183,6 +186,8 @@ public class ArticleDetailFragment extends Fragment implements
 
                         }
                     });
+        } else {
+            mRootView.setVisibility(View.GONE);
         }
     }
 
