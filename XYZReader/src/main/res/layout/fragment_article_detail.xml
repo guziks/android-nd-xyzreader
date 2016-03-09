@@ -111,7 +111,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_share"
-        app:layout_anchor="@id/article_body"
+        app:layout_anchor="@id/meta_bar"
+        app:layout_behavior=".ui.ScrollAwareFABBehavior"
         app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>
