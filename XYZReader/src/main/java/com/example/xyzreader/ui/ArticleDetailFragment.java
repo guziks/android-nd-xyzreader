@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,9 @@ public class ArticleDetailFragment extends Fragment implements
     private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
+    public static final String ACTION_NEXT_COLOR = "intent.action.next_color";
+    public static final String EXTRA_NEXT_COLOR = "intent.extra.next_color";
+    public static final String EXTRA_ITEM_ID = "intent.extra.item_id";
 
     private Cursor mCursor;
     private long mItemId;
@@ -117,6 +121,11 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
     }
@@ -152,8 +161,11 @@ public class ArticleDetailFragment extends Fragment implements
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
-                                setStatusBarColor(mMutedColor);
                                 setToolbarColor(mMutedColor);
+                                Intent nextColorIntent = new Intent(ACTION_NEXT_COLOR);
+                                nextColorIntent.putExtra(EXTRA_ITEM_ID, mItemId);
+                                nextColorIntent.putExtra(EXTRA_NEXT_COLOR, mMutedColor);
+                                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(nextColorIntent);
                             }
                         }
 
@@ -162,15 +174,6 @@ public class ArticleDetailFragment extends Fragment implements
 
                         }
                     });
-        }
-    }
-
-    private void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (getActivity() != null) {
-                Window window = getActivity().getWindow();
-                window.setStatusBarColor(color);
-            }
         }
     }
 
