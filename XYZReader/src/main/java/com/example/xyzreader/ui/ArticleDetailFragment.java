@@ -51,6 +51,7 @@ public class ArticleDetailFragment extends Fragment implements
     private View mRootView;
     private int mMutedColor = 0xFF333333;
     private ImageView mPhotoView;
+    private View mUpButton;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -103,6 +104,14 @@ public class ArticleDetailFragment extends Fragment implements
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setDisplayShowHomeEnabled(true);
 //        actionBar.setDisplayShowTitleEnabled(false);
+
+        mUpButton = mRootView.findViewById(R.id.action_up);
+        mUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivityCast().onSupportNavigateUp();
+            }
+        });
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
 
