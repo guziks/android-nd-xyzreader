@@ -38,6 +38,9 @@ import java.util.Map;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String BUNDLE_STATUS_BAR_COLORS = "status_bar_colors";
+    private static final String BUNDLE_SELECTED_ITEM_ID = "selected_item_id";
+
     private Cursor mCursor;
     private long mStartId;
     private long mSelectedItemId;
@@ -45,7 +48,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     private int mCurrentStatusBarColor;
     private int mNextStatusBarColor;
 
-    private Map<Long, Integer> mStatusBarColors;
+    private HashMap<Long, Integer> mStatusBarColors;
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
@@ -68,8 +71,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         getResources().getColor(R.color.theme_primary_dark);
-
-        mStatusBarColors = new HashMap<>();
 
         setContentView(R.layout.activity_article_detail);
 
@@ -98,11 +99,16 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
         });
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            mSelectedItemId = savedInstanceState.getLong(BUNDLE_SELECTED_ITEM_ID);
+            mStatusBarColors = (HashMap<Long, Integer>) savedInstanceState.getSerializable(BUNDLE_STATUS_BAR_COLORS);
+            setStatusBarColorForId(mSelectedItemId);
+        } else {
             if (getIntent() != null && getIntent().getData() != null) {
                 mStartId = ItemsContract.Items.getItemId(getIntent().getData());
                 mSelectedItemId = mStartId;
             }
+            mStatusBarColors = new HashMap<>();
         }
     }
 
@@ -118,6 +124,13 @@ public class ArticleDetailActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mColorReceiver);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(BUNDLE_SELECTED_ITEM_ID, mSelectedItemId);
+        outState.putSerializable(BUNDLE_STATUS_BAR_COLORS, mStatusBarColors);
     }
 
     public void setStatusBarColorForId(long id) {
