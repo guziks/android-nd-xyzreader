@@ -1,10 +1,4 @@
 <resources>
-    <!-- list -->
     <dimen name="list_side_margin">64dp</dimen>
-    <!-- minus 64 - 12 -->
-    <dimen name="list_toolbar_side_margin">52dp</dimen>
     <integer name="list_column_count">4</integer>
-
-    <!-- detail -->
-    <dimen name="detail_card_max_width">704dp</dimen>
 </resources>
